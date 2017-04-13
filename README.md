@@ -11,7 +11,6 @@ https://neil-h-williams.github.io
 * Added "media print" attribute to css/print.css.
 * Minified styles.css and inlined css in index.html.
 * Commented out / removed google fonts.
-* Minified and compressed index.html.
 
 ### Changes made to main.js
 
