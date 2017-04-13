@@ -1,55 +1,31 @@
-## Website Performance Optimization portfolio project
+## View the website
 
-Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
+To view the optimized website, open Chrome and go to:
+https://neil-h-williams.github.io
 
-To get started, check out the repository and inspect the code.
+## Optimizations made to files
 
-### Getting started
+### Changes made to index.html
+* Compressed images and resized pizzeria.jpg.
+* Added "async" attribute to scripts for Google analytics.
+* Added "media print" attribute to css/print.css.
+* Minified styles.css and inlined css in index.html.
+* Commented out / removed google fonts.
+* Minified and compressed index.html.
 
-#### Part 1: Optimize PageSpeed Insights score for index.html
+### Changes made to main.js
 
-Some useful tips to help you get started:
+#### Changes to "updatePositions" function:
+* Changed "querySelectorAll" to "getElementsByClassName".
+* Moved "document.body.scrollTop / 1250" and "items.length" out of the for loop and assigned them to variables. Reason: to get as many calculations and calls outside the for loop.
+* (Tried changing style.left to transform: translateX(), but didn't see a difference in performance).
 
-1. Check out the repository
-1. To inspect the site on your phone, you can run a local server
+#### Changes to "changePizzaSizes" function:
+* Moved the variables "oldWidth", "oldSize", and "windowWidth" from the "determineDx" function into the "changePizzaSizes" function. Reason: to move assignments and calculations outside of the main loop in "changePizzaSizes". "determineDx" function is now just "sizeSwitcher".
+* Moved "document.querySelectorAll(".randomPizzaContainer")" outside the loop and assigned it to a variable.
+* Changed the function "determineDx" to a simpler function "sizeSwitcher" to just calculate the size of the slider value.
 
-  ```bash
-  $> cd /path/to/your-project-folder
-  $> python -m SimpleHTTPServer 8080
-  ```
-
-1. Open a browser and visit localhost:8080
-1. Download and install [ngrok](https://ngrok.com/) to the top-level of your project directory to make your local server accessible remotely.
-
-  ``` bash
-  $> cd /path/to/your-project-folder
-  $> ./ngrok http 8080
-  ```
-
-1. Copy the public URL ngrok gives you and try running it through PageSpeed Insights! Optional: [More on integrating ngrok, Grunt and PageSpeed.](http://www.jamescryer.com/2014/06/12/grunt-pagespeed-and-ngrok-locally-testing/)
-
-Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
-
-#### Part 2: Optimize Frames per Second in pizza.html
-
-To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js. 
-
-You might find the FPS Counter/HUD Display useful in Chrome developer tools described here: [Chrome Dev Tools tips-and-tricks](https://developer.chrome.com/devtools/docs/tips-and-tricks).
-
-### Optimization Tips and Tricks
-* [Optimizing Performance](https://developers.google.com/web/fundamentals/performance/ "web performance")
-* [Analyzing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp.html "analyzing crp")
-* [Optimizing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/optimizing-critical-rendering-path.html "optimize the crp!")
-* [Avoiding Rendering Blocking CSS](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css.html "render blocking css")
-* [Optimizing JavaScript](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/adding-interactivity-with-javascript.html "javascript")
-* [Measuring with Navigation Timing](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp.html "nav timing api"). We didn't cover the Navigation Timing API in the first two lessons but it's an incredibly useful tool for automated page profiling. I highly recommend reading.
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/eliminate-downloads.html">The fewer the downloads, the better</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer.html">Reduce the size of text</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization.html">Optimize images</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching.html">HTTP caching</a>
-
-### Customization with Bootstrap
-The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstrap</a> framework. All custom styles are in `dist/css/portfolio.css` in the portfolio repo.
-
-* <a href="http://getbootstrap.com/css/">Bootstrap's CSS Classes</a>
-* <a href="http://getbootstrap.com/components/">Bootstrap's Components</a>
+#### Other changes:
+* Added "will-change: transform" to .mover class in views/css/style.css (line 36). Reason: to place the animating pizzas on their own layer.
+* Changed the number of pizzas from 200 to 40 for the for loop that generates the sliding pizzas (line 528). Reason: no need to animate 200 pizzas on the page.
+* Moved the "i % 5" calculation from "updatePositions" to "elem.modulo = i % 5;" (line 535). Reason: to move some calculations out of the for loop in "updatePositions" function.
